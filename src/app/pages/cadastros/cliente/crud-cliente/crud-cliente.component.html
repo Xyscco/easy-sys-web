@@ -1,0 +1,161 @@
+<mat-tab-group animationDuration="0ms">
+    <mat-tab label="Pessoa Fisíca">
+        <div style="padding: 10px;">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Nome</mat-label>
+                        <input matInput [formControl]="nomeRazaoFormControl" [(ngModel)]="cliente.nomeRazao">
+                        <mat-error *ngIf="nomeRazaoFormControl.hasError('required')">
+                            O nome é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Fantasia</mat-label>
+                        <input matInput [(ngModel)]="cliente.fantasiaApelido">
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="3" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field" style="margin-right: 8px;">
+                        <mat-label>CPF</mat-label>
+                        <input matInput mask="000.000.000-00" [(ngModel)]="cliente.cpfCnpj">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field" style="margin-right: 8px;">
+                        <mat-label>RG</mat-label>
+                        <input matInput [(ngModel)]="cliente.rg">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Data de Nascimento</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="3" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field" style="margin-right: 8px;">
+                        <mat-label>E-mail</mat-label>
+                        <input matInput placeholder="nome@dominio.com" [formControl]="emailFormControl"
+                            [(ngModel)]="cliente.email">
+                        <mat-error *ngIf="emailFormControl.hasError('email')">
+                            Por favor, insira um endereço de e-mail válido
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field" style="margin-right: 8px;">
+                        <mat-label>Sexo</mat-label>
+                        <mat-select [(ngModel)]="cliente.sexo">
+                            <mat-option value="masculino">Masculino</mat-option>
+                            <mat-option value="feminino">Feminino</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+    </mat-tab>
+    <mat-tab label="Pessoa Júridica">
+        <div style="padding: 10px;">
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Razão Social</mat-label>
+                        <input matInput [formControl]="nomeRazaoFormControl" [(ngModel)]="cliente.nomeRazao">
+                        <mat-error *ngIf="nomeRazaoFormControl.hasError('required')">
+                            A Razão social é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Fantasia</mat-label>
+                        <input matInput [(ngModel)]="cliente.fantasiaApelido">
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list cols="3" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field" style="margin-right: 8px;">
+                        <mat-label>CNPJ</mat-label>
+                        <input matInput mask="00.000.000/0000-00" [(ngModel)]="cliente.cpfCnpj">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field" style="margin-right: 8px;">
+                        <mat-label>Inscrição estadual</mat-label>
+                        <input matInput [(ngModel)]="cliente.inscricaoEstadual">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>E-mail</mat-label>
+                        <input matInput placeholder="nome@dominio.com" [formControl]="emailFormControl"
+                            [(ngModel)]="cliente.email">
+                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                            Por favor, insira um endereço de e-mail válido
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">
+                            O endereço de e-mail é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+<mat-divider></mat-divider>
+<mat-accordion class="headers-align" multi>
+    <mat-expansion-panel [expanded]="expandedPanel === 0" (opened)="openPanel(0)">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Endereços
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div style="padding: 10px;">
+            <button mat-raised-button color="primary" (click)="openModalEndereco()">Novo Endereço</button>
+        </div>
+        <div style="padding: 10px;">
+            <div class="barra-endereco mat-elevation-z2" *ngFor="let item of cliente.enderecos; let i = index;">
+                <span>{{ getTextoEndereco(item) }}</span>
+                <div>
+                    <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
+                        (click)="openModalEndereco(false, item)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" aria-label="Example icon button with a menu icon"
+                        (click)="deleteEndereco(i, item)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="expandedPanel === 1" (opened)="openPanel(1)">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Telefones
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div style="padding: 10px;">
+            <button mat-raised-button color="primary" (click)="openModalEndereco()">Novo Telefone</button>
+        </div>
+        <div style="padding: 10px;">
+        </div>
+    </mat-expansion-panel>
+
+</mat-accordion>

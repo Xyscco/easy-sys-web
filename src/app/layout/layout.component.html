@@ -1,0 +1,38 @@
+<mat-drawer-container class="container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="over">
+      <div class="titulo-menu">
+        <span >Orça Fácil Web</span>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-list (click)="drawer.toggle()">
+          <mat-list-item class="item-menu" (click)="navegar('pedidos')"><span>Pedidos</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="item-menu" (click)="navegar('entregas')"><span>Entregas</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="item-menu" (click)="navegar('clientes')"><span>Clientes</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="item-menu" (click)="navegar('produtos')"><span>Produtos</span></mat-list-item>
+      </mat-list>
+    </mat-drawer>
+  
+    <div class="sidenav-content">
+        <mat-toolbar color="primary">
+            <button mat-icon-button class="icon" (click)="drawer.toggle()" >
+              <mat-icon>menu</mat-icon>
+            </button>
+            <span (click)="navegar('')" style="cursor: pointer;">Easy Sys</span> 
+            <span class="spacer"></span>
+        </mat-toolbar>
+        <div class="titulo-pagina">
+          <span>{{ titulo }}</span>
+        </div>
+        <div class="conteudo mat-elevation-z8">
+          <router-outlet></router-outlet>
+        </div>
+    </div>
+  
+</mat-drawer-container>
+
+
+
+
