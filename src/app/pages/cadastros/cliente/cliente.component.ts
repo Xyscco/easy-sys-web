@@ -49,9 +49,7 @@ export class ClienteComponent implements AfterViewInit {
     this.apiCliente.getClientes()
     .pipe(
       catchError((error) => {
-        console.error(error);
-        this.app.openSnackBar(error.status);
-        return throwError('Ocorreu um erro na requisição.');
+        return throwError(() => this.app.openSnackBar(error.status));
       })
     )
     .subscribe((_dados: any) => {

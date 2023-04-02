@@ -1,3 +1,4 @@
+import { ModalTelefoneComponent } from './pages/modals/modal-telefone/modal-telefone.component';
 import { ProdutoComponent } from './pages/cadastros/produto/produto.component';
 import { ClienteComponent } from './pages/cadastros/cliente/cliente.component';
 import { NgModule } from '@angular/core';
@@ -45,7 +46,8 @@ registerLocaleData(pt);
     LayoutComponent,
     CpfCnpjPipe,
     CrudClienteComponent,
-    ModalEnderecoComponent
+    ModalEnderecoComponent,
+    ModalTelefoneComponent,
     
   ],
   imports: [

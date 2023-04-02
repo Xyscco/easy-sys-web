@@ -1,3 +1,22 @@
+<div class="barra-acoes">
+    <div class="titulo">
+        {{ titulo }}
+    </div>
+    <div class="acoes">
+        <button mat-icon-button aria-label="Cancelar" (click)="cancelar()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+        <button *ngIf="cliente.id !== null" mat-icon-button color="warn" aria-label="Excluir" (click)="removerCliente()" [disabled]="cliente.id === null">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button *ngIf="cliente.id !== null" mat-icon-button color="accent" aria-label="Editar" (click)="liberaEdicao()" >
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="!previewMode" mat-icon-button color="primary" aria-label="Salvar" (click)="salvarCliente()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </div>
+</div>
 <mat-tab-group animationDuration="0ms">
     <mat-tab label="Pessoa Fisíca">
         <div style="padding: 10px;">
@@ -114,7 +133,7 @@
         </div>
     </mat-tab>
 </mat-tab-group>
-<mat-divider></mat-divider>
+<mat-divider style="margin-bottom: 25px;"></mat-divider>
 <mat-accordion class="headers-align" multi>
     <mat-expansion-panel [expanded]="expandedPanel === 0" (opened)="openPanel(0)">
         <mat-expansion-panel-header>
@@ -127,7 +146,7 @@
             <button mat-raised-button color="primary" (click)="openModalEndereco()">Novo Endereço</button>
         </div>
         <div style="padding: 10px;">
-            <div class="barra-endereco mat-elevation-z2" *ngFor="let item of cliente.enderecos; let i = index;">
+            <div class="barra-endereco-telefone mat-elevation-z2" *ngFor="let item of cliente.enderecos; let i = index;">
                 <span>{{ getTextoEndereco(item) }}</span>
                 <div>
                     <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
@@ -135,11 +154,10 @@
                         <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" aria-label="Example icon button with a menu icon"
-                        (click)="deleteEndereco(i, item)">
+                        (click)="removeEndereco(i, item)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
-
             </div>
         </div>
 
@@ -152,9 +170,22 @@
         </mat-expansion-panel-header>
 
         <div style="padding: 10px;">
-            <button mat-raised-button color="primary" (click)="openModalEndereco()">Novo Telefone</button>
+            <button mat-raised-button color="primary" (click)="openModalTelefone()">Novo Telefone</button>
         </div>
         <div style="padding: 10px;">
+            <div class="barra-endereco-telefone mat-elevation-z2" *ngFor="let item of cliente.telefones; let i = index;">
+                <span>{{ getTextoTelefone(item) }}</span>
+                <div>
+                    <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
+                        (click)="openModalTelefone(false, item)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" aria-label="Example icon button with a menu icon"
+                        (click)="removeTelefone(i, item)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
         </div>
     </mat-expansion-panel>
 

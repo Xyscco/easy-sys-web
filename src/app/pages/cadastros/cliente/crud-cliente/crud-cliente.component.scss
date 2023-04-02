@@ -1,9 +1,24 @@
+.barra-acoes {
+    display: flex;
+    width: 100%;
+
+    .titulo {
+        font-size: 20px;
+        width: 100%;
+    }
+
+    .acoes {
+        display: flex;
+        align-items: end;
+    }
+}
+
 .form-field {
     width: 100%;
     margin-top: 6px;
 }
 
-.barra-endereco {
+.barra-endereco-telefone {
     display: flex;
     justify-content: space-between;
     align-items: center;

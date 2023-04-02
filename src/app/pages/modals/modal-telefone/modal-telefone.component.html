@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Cadastro de Endereço</h2>
+<mat-dialog-content class="mat-typography">
+    <div style="padding: 10px;">
+        <mat-grid-list cols="2" rowHeight="80px">
+            <mat-grid-tile>
+                <mat-form-field appearance="outline" class="form-field" style="margin-right: 8px;">
+                    <mat-label>Favorite food</mat-label>
+                    <mat-select [(ngModel)]="telefone.tipo" name="food">
+                        <mat-option *ngFor="let tipo of tiposTelefone" [value]="tipo.codigo" >
+                            {{tipo.descricao}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="outline" class="form-field" >
+                    <mat-label>Numero</mat-label>
+                    <input matInput [mask]="getMask()" [(ngModel)]="telefone.numero">
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onClose()" cdkFocusInitial>Confirmar</button>
+</mat-dialog-actions>

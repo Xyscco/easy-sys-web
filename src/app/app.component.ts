@@ -20,7 +20,7 @@ export class AppComponent {
       msg = 'Servidor off-line';
     else if (status === 200)
       msg = "Sucesso na requisição";
-    else if (status = 0)
+    else if (status === 0)
       msg = "Servidor não encontrado";
     else
       msg = "Algo de errado não está certo";
