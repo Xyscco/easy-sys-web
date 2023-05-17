@@ -18,7 +18,7 @@
         <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: center;"> Ações </th>
         <td mat-cell *matCellDef="let element" style="width: 200px; text-align: center;"> 
           <button mat-button color="primary" (click)="abrirCadastroCliente(element.id)">Editar</button>
-          <button mat-button color="accent" (click)="excluirCliente(element.id)">Excluir</button>
+          <button mat-button color="accent" (click)="confirmaExclusaoCliente(element.id)">Excluir</button>
         </td>
       </ng-container>
   

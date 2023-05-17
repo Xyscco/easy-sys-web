@@ -1,6 +1,7 @@
 export class Endereco {
 
     id?: string | null;
+    clienteId?: string | null;
     logradouro?: string | null;
     numero?: string | null;
     complemento?: string | null;
@@ -11,6 +12,7 @@ export class Endereco {
 
     constructor() {
         this.id = null;
+        this.clienteId = null;
         this.logradouro = null;
         this.numero = null;
         this.complemento = null;

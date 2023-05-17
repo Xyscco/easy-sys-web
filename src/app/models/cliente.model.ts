@@ -19,7 +19,7 @@ export class Cliente {
         this.nomeRazao = null;
         this.fantasiaApelido = null;
         this.cpfCnpj = null;
-        this.inscricaoEstadual = null;
+        this.inscricaoEstadual = '';
         this.dataNascimento = null;
         this.sexo = null;
         this.email = null;

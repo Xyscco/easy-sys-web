@@ -24,7 +24,7 @@ export class CrudClienteComponent implements OnInit {
   cliente: Cliente = new Cliente();
   expandedPanel: number = 0;
 
-  previewMode: boolean = false;
+  isEdicao: boolean = false;
 
   emailFormControl = new FormControl('', [
     Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
@@ -44,20 +44,28 @@ export class CrudClienteComponent implements OnInit {
     private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       if (params['id']) {
-        this.previewMode = true;
+        this.isEdicao = true;
         this.cliente.id = params['id'];
       }
     });
   }
 
   ngOnInit() {
-    if (this.cliente.id !== null && this.cliente.id !== undefined) {
-
+    if (this.cliente.id !== null && this.cliente.id !== undefined && this.isEdicao) {
+      this.carregaClienteEdicao(); 
     }
   }
 
-  liberaEdicao() {
-    this.previewMode = false;
+  carregaClienteEdicao() {
+    this.apiCliente.getClientePorId(this.cliente.id)
+      .pipe(
+        catchError((error) => {
+          return throwError(() => this.app.openSnackBar(error.status));
+        })
+      )
+      .subscribe((_dados: any) => {
+        this.cliente = _dados;
+      });  
   }
 
   salvarCliente() {
@@ -83,7 +91,7 @@ export class CrudClienteComponent implements OnInit {
   }
 
   alterar() {
-    this.apiCliente.postCliente(this.cliente)
+    this.apiCliente.putCliente(this.cliente.id, this.cliente)
       .pipe(
         catchError((error) => {
           return throwError(() => this.app.openSnackBar(error.status));
@@ -122,20 +130,36 @@ export class CrudClienteComponent implements OnInit {
 
   //ENDEREÇO
 
-  openModalEndereco(isInclusao: boolean = true, endereco?: Endereco) {
+  openModalEndereco(endereco?: Endereco | null) {
     this.dialogConfig.width = '800px';
-    if (isInclusao)
+    if (endereco === null)
       this.dialogConfig.data = new Endereco();
     else
       this.dialogConfig.data = endereco;
+
     const dialogRef = this.modal.open(ModalEnderecoComponent, this.dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log(index);
-      if (isInclusao)
+      if (!this.isEdicao)
         this.cliente.enderecos?.push(result);
-      
-      console.table(this.cliente.enderecos);
+      else if (result.id !== null && result.id !== undefined) 
+        this.alteraEndereco(result);
+      else
+        this.incluirEndereco(result);
+    });
+  }
+
+  incluirEndereco(objEndereco: Endereco) {
+    objEndereco.clienteId = this.cliente.id;
+    objEndereco
+    this.apiCliente.postEndereco(objEndereco)
+    .pipe(
+      catchError((error) => {
+        return throwError(() => this.app.openSnackBar(error.status));
+      })
+    )
+    .subscribe((_dados: any) => {
+      this.cliente.enderecos?.push(objEndereco);
     });
   }
 
@@ -199,24 +223,45 @@ export class CrudClienteComponent implements OnInit {
 
   // TELEFONE
 
-  openModalTelefone(isInclusao: boolean = true, telefone?: Telefone) {
+  openModalTelefone(telefone?: Telefone | null) {
     this.dialogConfig.width = '500px';
-    if (isInclusao)
+    if (telefone === null)
       this.dialogConfig.data = new Telefone();
     else
       this.dialogConfig.data = telefone;
+
     const dialogRef = this.modal.open(ModalTelefoneComponent, this.dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       // console.log(index);
-      if (isInclusao)
+      if (!this.isEdicao)
         this.cliente.telefones?.push(result);
       
       console.table(this.cliente.telefones);
+
+      if (!this.isEdicao)
+        this.cliente.telefones?.push(result);
+      else if (result.id !== null && result.id !== undefined) 
+        this.alterarTelefone(result);
+      else
+        this.incluirTelefone(result);
     });
   }
 
-  alteraTelefone(objTelefone: Telefone) {
+  incluirTelefone(objTelefone: Telefone) {
+    objTelefone.clienteId = this.cliente.id;
+    this.apiCliente.postTelefone(objTelefone)
+    .pipe(
+      catchError((error) => {
+        return throwError(() => this.app.openSnackBar(error.status));
+      })
+    )
+    .subscribe((_dados: any) => {
+      this.cliente.telefones?.push(objTelefone);
+    });
+  }
+
+  alterarTelefone(objTelefone: Telefone) {
     this.apiCliente.putTelefone(objTelefone)
     .pipe(
       catchError((error) => {

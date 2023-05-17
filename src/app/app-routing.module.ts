@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'entrega', component: DashboardComponent},
   { path: 'cliente', component: ClienteComponent},
   { path: 'cliente/crud', component: CrudClienteComponent},
+  { path: 'cliente/crud/:id', component: CrudClienteComponent},
   { path: 'produto', component: ProdutoComponent},
   { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
 ];

@@ -1,5 +1,7 @@
 export class Telefone {
+
     id?: string | null;
+    clienteId?: string | null;
     numero?: string | null;
     tipo?: string | null;
 
