@@ -35,6 +35,7 @@ import { CpfCnpjPipe } from './pipes/cpf-cnpj.pipe';
 import { CrudClienteComponent } from './pages/cadastros/cliente/crud-cliente/crud-cliente.component';
 import { ModalEnderecoComponent } from './pages/modals/modal-endereco/modal-endereco.component';
 import { ModalConfirmacaoComponent } from './pages/modals/modal-confirmacao/modal-confirmacao.component';
+import { ModalProdutoComponent } from './pages/modals/modal-produto/modal-produto.component';
 
 registerLocaleData(pt);
 
@@ -49,7 +50,8 @@ registerLocaleData(pt);
     CrudClienteComponent,
     ModalEnderecoComponent,
     ModalTelefoneComponent,
-    ModalConfirmacaoComponent
+    ModalConfirmacaoComponent,
+    ModalProdutoComponent
     
   ],
   imports: [

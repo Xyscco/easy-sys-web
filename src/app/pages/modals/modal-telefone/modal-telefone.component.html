@@ -4,7 +4,7 @@
         <mat-grid-list cols="2" rowHeight="80px">
             <mat-grid-tile>
                 <mat-form-field appearance="outline" class="form-field" style="margin-right: 8px;">
-                    <mat-label>Favorite food</mat-label>
+                    <mat-label>Tipo</mat-label>
                     <mat-select [(ngModel)]="telefone.tipo" name="food">
                         <mat-option *ngFor="let tipo of tiposTelefone" [value]="tipo.codigo" >
                             {{tipo.descricao}}
